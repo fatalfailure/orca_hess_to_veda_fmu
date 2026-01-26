@@ -1,0 +1,63 @@
+
+##########
+Coordinates of  12 atoms have been read
+  1   6   C   -0.761304    0.000000    0.000000   12.000000
+  2   6   C   -0.412270    0.661490    0.000000   12.000000
+  3   6   C    0.412270    0.661490    0.000000   12.000000
+  4   6   C    0.761304    0.000000    0.000000   12.000000
+  5   6   C    0.412270   -0.661490    0.000000   12.000000
+  6   6   C   -0.412270   -0.661490    0.000000   12.000000
+  7   8   O   -0.726373    1.247175    0.000000   15.994915
+  8   8   O    0.726373    1.247175    0.000000   15.994915
+  9   8   O    0.726373   -1.247175    0.000000   15.994915
+ 10   8   O   -0.726373   -1.247175    0.000000   15.994915
+ 11   1   H   -1.340523    0.000000    0.000000    1.007825
+ 12   1   H    1.340523    0.000000    0.000000    1.007825
+the matrix F has been read from file C:\00out_files\dehydro_2s.fmu
+ # Basis set for element : H 
+MPO from file c:\00out_files\dehydro_2s.mpo
+copy c:\00out_files\dehydro_2s.mpo --> skra.mpo
+MPO is tested
+***********************
+atoms:  12  MPO accepted definitions:  12
+ 3. C 1: C 2, C 6, H 11
+ 3. C 2: C 1, C 3, O 7
+ 3. C 3: C 2, C 4, O 8
+ 3. C 4: C 3, C 5, H 12
+ 3. C 5: C 4, C 6, O 9
+ 3. C 6: C 1, C 5, O 10
+ring No.  1 ... 
+  ... broken  6 5
+stretching 11, bending 10, torsion 5, out-of-plane 4
+regarded 1 rings, 0 XY3 non-flat groups
+##########
+Coordinates of  12 atoms have been read
+  1   6   C   -0.761304    0.000000    0.000000   12.000000
+  2   6   C   -0.412270    0.661490    0.000000   12.000000
+  3   6   C    0.412270    0.661490    0.000000   12.000000
+  4   6   C    0.761304    0.000000    0.000000   12.000000
+  5   6   C    0.412270   -0.661490    0.000000   12.000000
+  6   6   C   -0.412270   -0.661490    0.000000   12.000000
+  7   8   O   -0.726373    1.247175    0.000000   15.994915
+  8   8   O    0.726373    1.247175    0.000000   15.994915
+  9   8   O    0.726373   -1.247175    0.000000   15.994915
+ 10   8   O   -0.726373   -1.247175    0.000000   15.994915
+ 11   1   H   -1.340523    0.000000    0.000000    1.007825
+ 12   1   H    1.340523    0.000000    0.000000    1.007825
+the matrix F has been read from file C:\00out_files\dehydro_2s.fmu
+ # Basis set for element : H 
+MPO from file c:\00out_files\dehydro_2s.mpo
+copy c:\00out_files\dehydro_2s.mpo --> skra.mpo
+MPO is tested
+***********************
+atoms:  12  MPO accepted definitions:  12
+ 3. C 1: C 2, C 6, H 11
+ 3. C 2: C 1, C 3, O 7
+ 3. C 3: C 2, C 4, O 8
+ 3. C 4: C 3, C 5, H 12
+ 3. C 5: C 4, C 6, O 9
+ 3. C 6: C 1, C 5, O 10
+ring No.  1 ... 
+  ... broken  6 5
+stretching 11, bending 10, torsion 5, out-of-plane 4
+regarded 1 rings, 0 XY3 non-flat groups
