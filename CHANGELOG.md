@@ -1,3 +1,10 @@
+## [Unreleased]
+
+- Rename `build_mpo` to `adjust_mpo` (wrappers kept for backward compatibility).
+- `adjust_mpo` no longer overwrites input `.mpo`; default output is `*_adj.mpo`.
+- Increase default max coordination for non-metal heavy atoms to 6 (was 4); metals to 8 (was 6).
+- Main converter avoids overwriting existing `.mpo` by writing `*_gen.mpo` when needed.
+
 # Changelog
 
 

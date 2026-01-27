@@ -60,9 +60,31 @@ COVALENT_RADIUS_A = {
 DEFAULT_DONORS = {"N", "O", "S", "P", "F", "Cl", "Br", "I"}
 
 # Metal-specific rules: only bond to donor atoms, keep the nearest max_coord within cutoff (Å)
+# Metal-specific rules: only bond to donor atoms, keep the nearest max_coord within cutoff (Å)
+#
+# Rationale:
+# - VEDA's automatic connectivity inference can over-connect around metals.
+# - We therefore generate a conservative MPO: metals only bond to typical donor atoms (N/O/S/P/halogens)
+#   and we keep only the nearest neighbors up to max_coord.
+# - If a metal you use is not listed, it will be treated as a normal element (non-metal pass),
+#   and the 'metal' coordination limits will not apply.
+DEFAULT_METAL_MAX_COORD = 6
+DEFAULT_METAL_CUTOFF_A = 2.60
+
+METAL_SYMBOLS = {
+    # 3d series (common)
+    "Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn",
+    # 4d series (common)
+    "Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd",
+    # 5d series (common)
+    "Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg",
+    # main-group metals often seen in coordination chemistry
+    "Al","Ga","In","Sn","Pb","Bi",
+}
+
 METAL_RULES = {
-    "Co": {"donors": DEFAULT_DONORS, "max_coord": 6, "cutoff": 2.60},
-    "Ga": {"donors": DEFAULT_DONORS, "max_coord": 6, "cutoff": 2.60},
+    sym: {"donors": DEFAULT_DONORS, "max_coord": DEFAULT_METAL_MAX_COORD, "cutoff": DEFAULT_METAL_CUTOFF_A}
+    for sym in METAL_SYMBOLS
 }
 
 def _sym_from_Z(z: int) -> str:
@@ -814,7 +836,7 @@ class App:
         self.var_gen_mpo = tk.BooleanVar(value=True)
         ttk.Checkbutton(
             main,
-            text="Also generate helper .mpo (connectivity). For Co/Ga: donor atoms only; max coordination 6.",
+            text="Also generate helper .mpo (connectivity) [recommended]. For some metal complexes, you can further refine connectivity with adjust_mpo.",
             variable=self.var_gen_mpo,
         ).grid(row=row, column=0, columnspan=3, sticky="w", pady=(0, 6))
         row += 1
@@ -1099,7 +1121,17 @@ class App:
             self.logprint("OK: wrote output ->", fmup)
             # (Comment translated to English for public release)
             if getattr(self, "var_gen_mpo", None) is not None and self.var_gen_mpo.get():
-                mpop = fmup.with_suffix(".mpo")
+                mpop = fmup.with_suffix('.mpo')
+                if mpop.exists():
+                    ans = messagebox.askyesno(
+                        "Overwrite .mpo?",
+                        "A .mpo file with the same name already exists.\n\n"
+                        f"Existing file:\n{mpop}\n\n"
+                        "Do you want to overwrite it?\n"
+                        "Choose 'No' to create a new file with suffix '_gen.mpo' instead."
+                    )
+                    if not ans:
+                        mpop = mpop.with_name(fmup.stem + '_gen.mpo')
                 try:
                     write_mpo(mpop, Z_list, coords)
                     self.logprint("OK: generated .mpo ->", mpop)

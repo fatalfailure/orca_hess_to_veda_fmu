@@ -21,6 +21,12 @@ This tool does **not** generate a Gaussian `.log`/`.out`.
 - `molecule.fmu` (always)
 - `molecule.mpo` (optional)
 
+**Note on `.mpo`:**
+- The main converter writes `molecule.mpo`. If that file already exists, it writes `molecule_gen.mpo` to avoid overwriting.
+- For refining connectivity (especially for metal complexes), use `adjust_mpo.py` / `adjust_mpo.pyw`.
+  - *Adjust mode* writes `*_adj.mpo` and never overwrites the input `.mpo`.
+
+
 Both are written next to the input file.
 
 ## 4. Usage
@@ -43,8 +49,8 @@ The built-in `.mpo` generator is distance-based (covalent radii heuristics). It 
 for many organic systems, but may require tuning for metal complexes.
 
 If connectivity is wrong:
-- Use `build_mpo.py` to regenerate/repair `.mpo`.
-- Adjust thresholds in the GUI (for `build_mpo.py`) if needed.
+- Use `adjust_mpo.py` to regenerate/repair `.mpo`.
+- Adjust thresholds in the GUI (for `adjust_mpo.py`) if needed.
 
 ## 6. Troubleshooting
 - **VEDA refuses the file**: check file paths, file permissions, and that the `.fmu` is not empty.

@@ -1,126 +1,62 @@
-# ORCA Hessian → VEDA FMU 変換ツール
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18377035.svg)](https://doi.org/10.5281/zenodo.18377035)
-
-ORCA の Hessian ファイル（`.hess`）から、VEDA が読み込める `.fmu` ファイル（Gaussian の formatted checkpoint 互換の最小テキスト形式）を生成します。  
-必要に応じて、VEDA 用の結合補助ファイル `.mpo` も生成できます。
-
----
-
-## 主な機能
-
-- ORCA `.hess` → VEDA `.fmu`（最小 fchk互換テキスト）へ変換
-- 必要に応じて `.mpo`（結合定義補助）を生成
-- Windows向けGUIランチャ（`.pyw`）を同梱
-- 英語／日本語マニュアル同梱
-- サンプル入出力（`examples/`）同梱
-
----
-
-## 動作環境
-
-- Python 3.x
-- 標準ライブラリのみ（多くの環境で tkinter も標準搭載）
-
-> Linux環境によっては `tkinter` の別途インストールが必要な場合があります。
-
----
-
-## インストール
-
-### 方法A：GitHubからZIPで取得
-1. リポジトリをZIPでダウンロード
-2. 展開する
-3. 下記の方法で実行
-
-### 方法B：git clone
-```bash
-git clone https://github.com/fatalfailure/orca_hess_to_veda_fmu.git
-cd orca_hess_to_veda_fmu
-```
-
----
-
-## 使い方（GUI）
-
-### 変換ツール（メイン）
-- Windows：  
-  `orca_hess_to_veda_fmu.pyw` をダブルクリック
-- またはPythonから起動：
-```bash
-python orca_hess_to_veda_fmu.py
-```
-
-手順：
-1. ORCA の `.hess` を選択
-2. （任意）`.out` を選択（charge/multiplicity を取得）
-3. （任意）`.mpo` 生成をON
-4. **Convert** を押す
-5. 同じフォルダに以下が生成されます：
-   - `*.fmu`（必ず生成）
-   - `*.mpo`（任意）
-
----
-
-## 使い方（.mpo のみ作る場合）
-
-`.mpo` を作り直したい場合は：
-
-- Windows：`build_mpo.pyw`
-- Python実行：
-```bash
-python build_mpo.py
-```
-
----
-
-## 出力について
-
-### `.fmu`
-VEDA 用の「Gaussian formatted checkpoint（fchk）互換の最小テキスト」です。  
-以下の情報を含みます：
-
-- 原子数
-- 電荷 / 多重度（取得できる場合）
-- 原子番号
-- Cartesian 座標
-- Cartesian 力定数（ヘッセ行列、下三角パック形式）
-
-### `.mpo`（任意）
-VEDA内部処理（例：DD2構築）を補助する結合定義ファイルです。  
-距離ベースの簡易判定により生成されます。
-
----
-
-## サンプル
-
-`examples/` フォルダにサンプル入出力と簡単な使用例があります。
-
----
-
-## 引用（Cite）
-
-本ソフトウェアを学術研究で使用した場合は、以下を引用してください：
-
-山本 薫, *ORCA Hessian to VEDA FMU Converter* (v1.0.1), Zenodo, https://doi.org/10.5281/zenodo.18377035
-
----
+# ORCA Hessian → VEDA .fmu 変換ツール
 
 ## 作者
 
 - 山本 薫（岡山理科大学）
 
----
+このリポジトリは、**ORCA** の振動解析結果を **VEDA** で扱うための、外部依存のない小さなツール集です。
+
+- `orca_hess_to_veda_fmu.py` / `.pyw`  
+  ORCA の `*.hess`（必要に応じて `*.out`）から、VEDA が読める `*.fmu`
+  （Gaussian の fchk 互換“最小”テキスト）を生成します。オプションで `*.mpo` も生成できます。
+
+- `adjust_mpo.py` / `.pyw`  
+  `.mpo` の **生成／再構成（修復）** に特化したツールです。すでに `.fmu`/`.xyz` がある場合や、
+  金属錯体などで結合定義の調整が必要な場合に便利です。
+
+English documentation: see [`README.md`](README.md).
+
+## 動作環境
+- Python 3.8 以上（推奨）
+- 標準ライブラリのみ（GUI は `tkinter` を使用）
+
+## 使い方
+
+注: Hessianに関する上級者向け設定は **Advanced settings（高度な設定）** に折り畳んであります。通常はデフォルトのままで問題ありません。（GUI）
+1. Windows なら `orca_hess_to_veda_fmu.pyw` をダブルクリック  
+   あるいは次のように実行：
+   ```bash
+   python orca_hess_to_veda_fmu.py
+   ```
+2. `molecule.hess` を選択（必須）
+3. （任意）`molecule.out` を選択
+4. **Convert** をクリック
+5. 入力ファイルと同じフォルダに出力：
+   - `molecule.fmu`
+   - `molecule.mpo`（任意）
+
+## VEDA 側
+VEDA は通常 `.fmu` / `.fmt` を要求します。
+
+- 生成された `molecule.fmu` を指定してください。
+- ワークフローによっては `.fmt`（ログ相当）が必要な場合があります。その場合は、
+  `molecule.out` をコピーして `molecule.fmt` にリネームして同じフォルダへ置く、などで対応できます。
+
+## ドキュメント
+- `docs/MANUAL_EN.md` — 詳細マニュアル（英語）
+- `docs/MANUAL_JA.md` — 詳細マニュアル（日本語）
+
+## 注意点
+- 本ツールが作る `.fmu` は Gaussian の `.log` ではありません。VEDAが必要とする
+  **原子情報・座標・ヘッセ行列**を含む最小の fchk 互換テキストです。
+- `.mpo` は距離ベースの簡易推定です。金属錯体など難しい系では `adjust_mpo.py` による
+  生成／修復を推奨します。
 
 ## サポート
 
 - 不具合報告・要望は **GitHub Issues** にお願いします（公開で共有され、他のユーザーの助けにもなります）。
-- 非公開での連絡が必要な場合：  
+- 非公開での連絡が必要な場合は、以下へお願いします：  
   `k-yamamoto@ous.ac.jp`
 
----
-
 ## ライセンス
-
-MIT License で公開しています。  
-詳しくは `LICENSE` を参照してください。
+MIT License（`LICENSE` を参照）。
