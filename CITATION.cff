@@ -8,9 +8,9 @@ authors:
     given-names: "Kaoru"
     affiliation: "Okayama University of Science"
 license: "MIT"
-repository-code: "https://github.com/<OWNER>/<REPOSITORY>"
+repository-code: "https://github.com/fatalfailure/orca_hess_to_veda_fmu"
 # Replace the placeholder below with the Zenodo Version DOI for v1.1.0 after the release is archived.
-# doi: "10.5281/zenodo.xxxxxxxx"
+# doi: "doi.org/10.5281/zenodo.20758369"
 keywords:
   - ORCA
   - VEDA
