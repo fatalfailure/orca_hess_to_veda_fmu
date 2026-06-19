@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "orca-hess-to-veda-fmu"
-version = "1.0.0"
-description = "Convert ORCA .hess to VEDA-readable .fmu (minimal fchk-like)."
+version = "1.1.0"
+description = "Convert ORCA .out/.hess to VEDA-readable .fmu and helper .mpo files."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {file = "LICENSE"}
 authors = [{name = "Kaoru Yamamoto"}]
+keywords = ["ORCA", "VEDA", "Hessian", "vibrational analysis", "fchk", "fmu", "mpo"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -18,5 +19,13 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Chemistry",
 ]
 
+[project.optional-dependencies]
+frequency-check = ["numpy"]
+drag-and-drop = ["tkinterdnd2"]
+
 [project.urls]
 "Documentation" = "README.md"
+"Changelog" = "CHANGELOG.md"
+"Citation" = "CITATION.cff"
+# Replace this placeholder with the public repository URL before release.
+"Repository" = "https://github.com/<OWNER>/<REPOSITORY>"
