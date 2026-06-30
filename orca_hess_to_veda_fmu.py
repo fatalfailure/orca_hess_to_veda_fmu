@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 # orca_hess_to_veda_fmu.pyw — ORCA (.out/.hess) → for VEDA minimal fchk (.fmu)
 #
+# Version: 1.1.0
+# Author: Kaoru Yamamoto, Okayama University of Science
+# License: MIT
+# Citation: Use CITATION.cff and cite the archived release DOI, if available.
+#
 # Specification overview:
 # - Convert ORCA .out/.hess into a Gaussian fchk-like .fmu readable by VEDA
 # - Works even if frequencies appear mid-file: anchor on the last frequency header
@@ -12,14 +17,13 @@
 # - Parse ORCA $hessian and reconstruct a full dim x dim matrix
 # - Output is ASCII with CRLF line endings; arrays use Gaussian fchk-style "N=" headers
 
+import sys, os, re, math, traceback
+from pathlib import Path
 
 __version__ = "1.1.0"
 __author__ = "Kaoru Yamamoto"
 __license__ = "MIT"
-__citation__ = "Cite the archived Zenodo/GitHub release DOI for the exact version used."
-
-import sys, os, re, math, traceback
-from pathlib import Path
+__citation__ = "Use CITATION.cff and cite the archived release DOI, if available."
 
 # optional in-window DnD
 _has_tkdnd = False
@@ -33,7 +37,7 @@ except Exception:
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, simpledialog
 
-APP_TITLE = f"ORCA -> VEDA .fmu Converter v{__version__} (GUI)"
+APP_TITLE = "ORCA -> VEDA .fmu Converter (GUI)"
 DEFAULT_UNITS = "hartree_bohr2"
 UNIT_CHOICES = ("hartree_bohr2", "mdyn_a2", "j_m2")
 

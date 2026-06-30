@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the exact released version used in your work."
+message: "If you use this software, please cite it using the metadata from this file."
 title: "ORCA Hessian to VEDA .fmu Converter"
 version: "1.1.0"
 date-released: "2026-06-19"
@@ -9,13 +9,10 @@ authors:
     affiliation: "Okayama University of Science"
 license: "MIT"
 repository-code: "https://github.com/<OWNER>/<REPOSITORY>"
-# Replace the placeholder below with the Zenodo Version DOI for v1.1.0 after the release is archived.
-# doi: "10.5281/zenodo.xxxxxxxx"
+# doi: "10.5281/zenodo.xxxxxxx"
 keywords:
   - ORCA
   - VEDA
   - Hessian
   - vibrational analysis
   - fchk
-  - fmu
-  - mpo
